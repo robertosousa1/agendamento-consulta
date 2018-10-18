@@ -18,7 +18,7 @@ $aux_medico_especializacao = mysqli_query($connection, $query1);
 $row1 = mysqli_fetch_assoc($aux_medico_especializacao);
 $id_medico_especializacao = $row1['id'];
 
-if(!empty($id) && !empty($color) && !empty($start) && !empty($end)){
+if(!empty($id) && !empty($especialidade) && !empty($doutor) && !empty($paciente) && !empty($color) && !empty($start) && !empty($end)){
 	//Converter a data e hora do formato brasileiro para o formato do Banco de Dados
 	$data = explode(" ", $start);
 	list($date, $hora) = $data;
@@ -50,11 +50,11 @@ if(!empty($id) && !empty($color) && !empty($start) && !empty($end)){
 	if(mysqli_affected_rows($connection)){
 				
 		$_SESSION['msg'] = "<div class='alert alert-success' role='alert'>Consulta alterada com sucesso.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+		include_once("../mail/send.php");
 		header("Location: ../index.php");
-		include_once("../mail/send_mail.php");
  
 	}else{
-		$_SESSION['msg'] = "<div class='alert alert-danger' role='alert'>Erro ao editar o evento <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+		$_SESSION['msg'] = "<div class='alert alert-danger' role='alert'>Erro ao editar a consulta <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
 		header("Location: ../index.php");
 	}
 		
@@ -66,6 +66,6 @@ if(!empty($id) && !empty($color) && !empty($start) && !empty($end)){
 	}
 	
 }else{
-	$_SESSION['msg'] = "<div class='alert alert-danger' role='alert'>Erro ao editar o evento <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+	$_SESSION['msg'] = "<div class='alert alert-danger' role='alert'>Erro ao editar a consulta <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
 	header("Location: ../index.php");
 }

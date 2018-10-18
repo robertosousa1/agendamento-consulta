@@ -15,14 +15,12 @@ $aux_medico_especializacao = mysqli_query($connection, $query1);
 $row1 = mysqli_fetch_assoc($aux_medico_especializacao);
 $id_medico_especializacao = $row1['id'];
 
-if(!empty($color) && !empty($start) && !empty($end)){
+if(!empty($especializacao) && !empty($medico) && !empty($color) && !empty($start) && !empty($end)){
 	$data = explode(" ", $start);
 	list($date, $hora) = $data;
-	//$data_mail = $date;
 	$data_sem_barra = array_reverse(explode("/", $date));
 	$data_sem_barra = implode("-", $data_sem_barra);
 	$start_sem_barra = $data_sem_barra . " " . $hora;
-	//$hora_mail = $hora;
 	
 	$data = explode(" ", $end);
 	list($date, $hora) = $data;
@@ -46,6 +44,7 @@ if(!empty($color) && !empty($start) && !empty($end)){
 		if(mysqli_insert_id($connection)){
 			$_SESSION['msg'] = "<div class='alert alert-success' role='alert'>Consulta Cadastrada com Sucesso<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
 			header("Location: ../index.php");
+			include_once("../mail/send.php");
 		}else{
 			$_SESSION['msg'] = "<div class='alert alert-danger' role='alert'>Erro ao cadastrar a consulta <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
 			header("Location: ../index.php");
